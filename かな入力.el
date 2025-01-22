@@ -72,7 +72,7 @@
   (quail-defrule (car it) (cadr it)))
 
 (quail-define-package
- "japanese-kana-katakana" "Japanese" "カナ" nil
+ "japanese-kana-katakana" "Japanese" "カナ" t
  "Japanese input method for typing Katakana with the かな入力 scheme."
  nil t nil)
 
