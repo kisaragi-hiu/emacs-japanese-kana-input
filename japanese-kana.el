@@ -19,6 +19,7 @@
 ;;; Code:
 
 (require 'cl-lib)
+(require 'japan-util)
 (require 'quail)
 
 ;; We want the values to be strings even when they can be characters, to make it
@@ -67,9 +68,21 @@
                              "っさそひこみも、。・"))))))
 
 (defun japanese-kana-toggle-kana ()
-  "Handle Kana toggling during conversion."
+  "Toggle between Hiragana and Katakana in the translation region."
   (interactive)
-  (quail-japanese-toggle-kana)
+  ;; This part is copied from `quail-japanese-toggle-kana'.
+  (setq quail-translating nil)
+  (let ((start (overlay-start quail-conv-overlay))
+        (end (overlay-end quail-conv-overlay)))
+    (save-excursion
+      (goto-char start)
+      (if (re-search-forward "\\cH" end t)
+          (japanese-katakana-region start end)
+        (japanese-hiragana-region start end)))
+    (setq quail-conversion-str
+          (buffer-substring (overlay-start quail-conv-overlay)
+                            (overlay-end quail-conv-overlay))))
+
   ;; Without this, if we type a character that can have dakuten like ち and
   ;; convert it to Katakana then press RET, it will commit both チ and ち.
   (setq quail-current-str nil))
