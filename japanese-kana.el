@@ -113,7 +113,7 @@ This is an adapted version of `quail-japanese-kanji-kkc'."
   (quail-terminate-translation))
 
 (quail-define-package
- "japanese-kana-hiragana" "Japanese" "かな" nil
+ "japanese-kana" "Japanese" "かな" nil
  "Japanese input method with Kana layout.
 
 The goal is that this skips the Roman-Kana transliteration step in the
