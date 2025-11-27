@@ -148,5 +148,19 @@ Kana-Kanji conversion after."
                             nv))
                          (t out)))))
 
+;;;###autoload
+(register-input-method "japanese-kana" "Japanese"
+                       (lambda ()
+                         (require 'japanese-kana)
+                         (quail-use-package "japanese-kana"))
+                       "かな" "Japanese input method with Kana layout.")
+
+;;;###autoload
+(register-input-method "japanese-kana-katakana" "Japanese"
+                       (lambda ()
+                         (require 'japanese-kana)
+                         (quail-use-package "japanese-kana-katakana"))
+                       "カナ" "Japanese input method for typing Katakana with Kana layout.")
+
 (provide 'japanese-kana)
 ;;; japanese-kana.el ends here
