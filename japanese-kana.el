@@ -66,38 +66,23 @@
                              "つさそひこみもねるめ"
                              "っさそひこみも、。・"))))))
 
-(defun japanese-kana-update-translation (control-flag)
-  "Update Quail translation region for Kana input.
-See `quail-update-translation' for what CONTROL-FLAG would be."
-  (if (null control-flag)
-      (setq quail-current-str
-            (if (/= (aref quail-current-key 0) ?q)
-                (or quail-current-str quail-current-key)
-              ""))
-    (if (integerp control-flag)
-        (let ((keylen (length quail-current-key)))
-          (cond ((= control-flag 0)
-                 (setq quail-current-str (aref quail-current-key 0)
-                       control-flag t))
-                ((= (aref quail-current-key 0) ?n)
-                 (setq quail-current-str ?ん)
-                 (if (and quail-japanese-use-double-n
-                          (> keylen 0)
-                          (= (aref quail-current-key 1) ?n))
-                     (setq control-flag t)))
-                ((and (> keylen 1)
-                      (= (aref quail-current-key 0) (aref quail-current-key 1)))
-                 (setq quail-current-str ?っ))
-                (t
-                 (setq quail-current-str (aref quail-current-key 0))))
-          (if (integerp control-flag)
-              (setq unread-command-events
-                    (append
-                     (substring quail-current-key control-flag)
-                     unread-command-events)))))))
+(defun japanese-kana-toggle-kana ()
+  "Handle Kana toggling during conversion."
+  (interactive)
+  (quail-japanese-toggle-kana)
+  ;; Without this, if we type a character that can have dakuten like ち and
+  ;; convert it to Katakana then press RET, it will commit both チ and ち.
+  (setq quail-current-str nil))
+
+(defun japanese-kana-translation-ret ()
+  "Handle RET during translation."
+  (interactive)
+  (setq quail-converting nil)
+  ;; This is needed to ensure half-done translation is still committed.
+  (quail-terminate-translation))
 
 (quail-define-package
- "japanese-kana-hiragana" "Japanese" "かな" t
+ "japanese-kana-hiragana" "Japanese" "かな" nil
  "Japanese input method with Kana layout.
 
 The goal is that this skips the Roman-Kana transliteration step in the
@@ -105,19 +90,19 @@ builtin \"japanese\" romaji input method with the Kana layout, then does
 Kana-Kanji conversion after."
  nil t t
  nil nil nil nil nil
- #'japanese-kana-update-translation
- '(("K" . quail-japanese-toggle-kana)
-   (" " . quail-no-conversion)
-   ("\C-m" . quail-no-conversion)
-   ([return] . quail-no-conversion)))
+ nil
+ '(("K" . japanese-kana-toggle-kana)
+   (" " . quail-japanese-kanji-kkc)
+   ;; RET also calls these bindings during the translation stage.
+   ("\C-m" . japanese-kana-translation-ret)
+   ([return] . japanese-kana-translation-ret)))
 
 (dolist (it japanese-kana-rules)
   (quail-defrule (car it) (cdr it)))
 
-
 (quail-define-package
  "japanese-kana-katakana" "Japanese" "カナ" t
- "Japanese input method for typing Katakana with the かな入力 scheme."
+ "Japanese input method for typing Katakana with Kana layout."
  nil t nil)
 
 (dolist (it japanese-kana-rules)
