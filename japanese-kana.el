@@ -6,7 +6,7 @@
 ;; Created: 2025-01-20
 ;; Modified: 2025-11-28
 ;; Version: 0.1.0
-;; Keywords: multilingual, input method, Japanese
+;; Keywords: i18n, input method, Japanese
 ;; Homepage: https://github.com/kisaragi-hiu/emacs-japanese-kana
 ;; Package-Requires: ((emacs "24.3"))
 ;;
