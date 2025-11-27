@@ -20,7 +20,6 @@
 
 (require 'cl-lib)
 (require 'quail)
-(require 'ucs-normalize)
 
 (defvar japanese-kana-rules
   (append
