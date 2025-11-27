@@ -19,8 +19,8 @@
 ;;; Code:
 
 (require 'cl-lib)
-(require 'japan-util)
 (require 'quail)
+(require 'kkc)
 
 ;; We want the values to be strings even when they can be characters, to make it
 ;; easy to convert them to katakana.
@@ -68,7 +68,8 @@
                              "っさそひこみも、。・"))))))
 
 (defun japanese-kana-toggle-kana ()
-  "Toggle between Hiragana and Katakana in the translation region."
+  "Toggle between Hiragana and Katakana in the translation region.
+This is an adapted version of `quail-japanese-toggle-kana'."
   (interactive)
   ;; This part is copied from `quail-japanese-toggle-kana'.
   (setq quail-translating nil)
@@ -86,6 +87,26 @@
   ;; Without this, if we type a character that can have dakuten like ち and
   ;; convert it to Katakana then press RET, it will commit both チ and ち.
   (setq quail-current-str nil))
+
+(defun japanese-kana-kanji-kkc ()
+  "Convert Hiragana in the current region to Kanji through KKC.
+This is an adapted version of `quail-japanese-kanji-kkc'."
+  (interactive)
+  ;; This is `quail-japanese-kanji-kkc' except the n -> ん handling is removed.
+  ;; Even if it is present it doesn't actually have any effect, but we also need
+  ;; this function inlined anyways, so we might as well remove it.
+  (let* ((from (copy-marker (overlay-start quail-conv-overlay)))
+         (len (- (overlay-end quail-conv-overlay) from)))
+    (quail-delete-overlays)
+    (setq quail-current-str nil)
+    (unwind-protect
+        (let ((result (kkc-region from (+ from len))))
+          (move-overlay quail-conv-overlay from (point))
+          (setq quail-conversion-str (buffer-substring from (point)))
+          (if (= (+ from result) (point))
+              (setq quail-converting nil))
+          (setq quail-translating nil))
+      (set-marker from nil))))
 
 (defun japanese-kana-translation-ret ()
   "Handle RET during translation."
@@ -105,7 +126,7 @@ Kana-Kanji conversion after."
  nil nil nil nil nil
  nil
  '(("K" . japanese-kana-toggle-kana)
-   (" " . quail-japanese-kanji-kkc)
+   (" " . japanese-kana-kanji-kkc)
    ;; RET also calls these bindings during the translation stage.
    ("\C-m" . japanese-kana-translation-ret)
    ([return] . japanese-kana-translation-ret)))
