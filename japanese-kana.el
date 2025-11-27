@@ -26,10 +26,7 @@
 ;; easy to convert them to katakana.
 (defvar japanese-kana-rules
   (append
-   ;; the first two are provided by kkc already
-   '(;("4%" ["うぇ" "ゑ"])
-     ;("4E" ["うぃ" "ゐ"])
-     ("4[" "ゔ"))
+   '(("4[" "ゔ"))
    (cl-mapcar
     #'cons
     (list "t[" "g[" "h[" "'[" "b["
