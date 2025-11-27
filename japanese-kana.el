@@ -18,7 +18,7 @@
 ;;
 ;;; Code:
 
-(require 'dash)
+(require 'cl-lib)
 (require 'quail)
 (require 'ucs-normalize)
 
@@ -27,57 +27,59 @@
    '(("4%" ["うぇ" "ゑ"])
      ("4E" ["うぃ" "ゐ"])
      ("4[" "ゔ"))
-   (-zip-lists
+   (cl-mapcar
+    #'cons
     (list "t[" "g[" "h[" "'[" "b["
           "x[" "d[" "r[" "p[" "c["
           "q[" "a[" "z[" "w[" "s["
           "f[" "v[" "2[" "=[" "-["
           "f]" "v]" "2]" "=]" "-]")
-    (->> (string-to-list (concat
-                          "がぎぐげご"
-                          "ざじずぜぞ"
-                          "だぢづでど"
-                          "ばびぶべぼ"
-                          "ぱぴぷぺぽ"))
-         (-map #'string)))
-   (-zip-lists
-    (->> (string-to-list (concat
-                          "`1234567890-="
-                          "~!@#$%^&*()_+"
-                          "qwertyuiop[]\\"
-                          "QWERTYUIOP{}"
-                          "asdfghjkl;'"
-                          "ASDFGHJKL:\""
-                          "zxcvbnm,./"
-                          "ZXCVBNM<>?"))
-         (-map #'string))
-    (->> (string-to-list (concat
-                          "ろぬふあうえおやゆよわほへ"
-                          "ろぬふぁぅぇぉゃゅょをーへ"
-                          "たていすかんなにらせ゛゜む"
-                          "たてぃすゕんなにらせ「」"
-                          "ちとしはきくまのりれけ"
-                          "ちとしはきくまのりれゖ"
-                          "つさそひこみもねるめ"
-                          "っさそひこみも、。・"))
-         (-map #'string)))))
+    (mapcar #'string
+            (string-to-list (concat
+                             "がぎぐげご"
+                             "ざじずぜぞ"
+                             "だぢづでど"
+                             "ばびぶべぼ"
+                             "ぱぴぷぺぽ"))))
+   (cl-mapcar
+    #'cons
+    (mapcar #'string
+            (string-to-list (concat
+                             "`1234567890-="
+                             "~!@#$%^&*()_+"
+                             "qwertyuiop[]\\"
+                             "QWERTYUIOP{}"
+                             "asdfghjkl;'"
+                             "ASDFGHJKL:\""
+                             "zxcvbnm,./"
+                             "ZXCVBNM<>?")))
+    (mapcar #'string
+            (string-to-list (concat
+                             "ろぬふあうえおやゆよわほへ"
+                             "ろぬふぁぅぇぉゃゅょをーへ"
+                             "たていすかんなにらせ゛゜む"
+                             "たてぃすゕんなにらせ「」"
+                             "ちとしはきくまのりれけ"
+                             "ちとしはきくまのりれゖ"
+                             "つさそひこみもねるめ"
+                             "っさそひこみも、。・"))))))
 
 (quail-define-package
  "japanese-kana-hiragana" "Japanese" "かな" t
  "Japanese input method for typing Hiragana with the かな入力 scheme."
  nil t nil)
 
-(--each japanese-kana-rules
-  (quail-defrule (car it) (cadr it)))
+(dolist (it japanese-kana-rules)
+  (quail-defrule (car it) (cdr it)))
 
 (quail-define-package
  "japanese-kana-katakana" "Japanese" "カナ" t
  "Japanese input method for typing Katakana with the かな入力 scheme."
  nil t nil)
 
-(--each japanese-kana-rules
+(dolist (it japanese-kana-rules)
   (quail-defrule (car it)
-                 (let ((out (cadr it)))
+                 (let ((out (cdr it)))
                    (cond ((stringp out)
                           (japanese-katakana out))
                          ((vectorp out)
