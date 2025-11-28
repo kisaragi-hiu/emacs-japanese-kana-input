@@ -5,7 +5,7 @@
 ;; Author: Kisaragi Hiu <mail@kisaragi-hiu.com>
 ;; Created: 2025-01-20
 ;; Modified: 2025-11-28
-;; Version: 0.2.0
+;; Version: 0.2.1
 ;; Keywords: i18n, input method, Japanese
 ;; Homepage: https://github.com/kisaragi-hiu/emacs-japanese-kana
 ;; Package-Requires: ((emacs "24.3"))
