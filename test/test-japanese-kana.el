@@ -43,4 +43,27 @@
             :to-equal "ちいさな")
     (expect (japanese-kana-simulate-input "japanese-kana"
               "kf[o ESC")
-            :to-equal "のばら")))
+            :to-equal "のばら"))
+  (it "can toggle katakana and hiragana"
+    (expect (japanese-kana-simulate-input "japanese-kana"
+              "k K RET")
+            :to-equal "ノ")
+    (expect (japanese-kana-simulate-input "japanese-kana"
+              "uyw[d(4t K RET")
+            :to-equal "ナンデショウカ")
+    (expect (japanese-kana-simulate-input "japanese-kana"
+              "rnjpy K K RET")
+            :to-equal "すみません"))
+  (it "can convert into Kanji"
+    (expect (japanese-kana-simulate-input "japanese-kana"
+              "\\r[tdebs SPC RET")
+            :to-equal "難しいこと"))
+  ;; Unfortunately it doesn't seem like we can interact with KKC during a test?
+  ;; The second one always returns ゐ no matter how many spaces I insert.
+  (xit "can type ヰ or ゐ"
+    (expect (japanese-kana-simulate-input "japanese-kana"
+              "4E SPC RET")
+            :to-equal "ゐ")
+    (expect (japanese-kana-simulate-input "japanese-kana"
+              "4E SPC SPC RET")
+            :to-equal "ヰ")))
