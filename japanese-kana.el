@@ -166,16 +166,16 @@ Katakana characters with the Kana layout."
 
 ;;;###autoload
 (register-input-method "japanese-kana" "Japanese"
-                       (lambda ()
+                       (lambda (im)
                          (require 'japanese-kana)
-                         (quail-use-package "japanese-kana"))
+                         (quail-use-package im))
                        "かな" "Japanese input method with Kana layout.")
 
 ;;;###autoload
 (register-input-method "japanese-kana-katakana" "Japanese"
-                       (lambda ()
+                       (lambda (im)
                          (require 'japanese-kana)
-                         (quail-use-package "japanese-kana-katakana"))
+                         (quail-use-package im))
                        "カナ" "Japanese input method for typing Katakana with Kana layout.")
 
 (provide 'japanese-kana)
