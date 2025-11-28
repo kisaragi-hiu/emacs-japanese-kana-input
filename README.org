@@ -17,10 +17,10 @@
 Install this package with eg. Straight:
 
 #+begin_src emacs-lisp
-(straight-use-package '(japanese-kana :repo "https://github.com/kisaragi-hiu/emacs-japanese-kana"))
+(straight-use-package '(japanese-kana :repo "https://github.com/kisaragi-hiu/emacs-japanese-kana-input"))
 #+end_src
 
-Then the input method =japanese-kana= and =japanese-kana-katakana= should both be available.
+Then the input method =japanese-kana= and =japanese-kana-katakana= should both be available without needing further setup.
 
 ** License
 

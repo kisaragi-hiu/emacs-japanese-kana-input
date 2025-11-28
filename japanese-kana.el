@@ -7,7 +7,7 @@
 ;; Modified: 2025-11-28
 ;; Version: 0.2.1
 ;; Keywords: i18n, input method, Japanese
-;; Homepage: https://github.com/kisaragi-hiu/emacs-japanese-kana
+;; Homepage: https://github.com/kisaragi-hiu/emacs-japanese-kana-input
 ;; Package-Requires: ((emacs "24.3"))
 ;;
 ;; This file is not part of GNU Emacs.
