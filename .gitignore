@@ -1,3 +1,4 @@
 /.eldev
 /Eldev-local
 *autoloads.el
+coverage-final.json
