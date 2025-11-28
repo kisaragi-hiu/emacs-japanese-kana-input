@@ -1,4 +1,16 @@
-* An attempt at a かな入力 input method for Emacs
+* An attempt at a Kana input method for Emacs
+
+** Features
+
+- かな入力
+- 変換機能 (内蔵の =japanese= 入力と同じ)
+- Kで文を平仮名と片假名の間で変換 (内蔵の =japanese= 入力と同じ)
+
+** Issues
+
+- I'm pretty sure this doesn't yet work on an actual JIS keyboard
+- I'm not a native Japanese speaker
+- The name is maybe not the best?
 
 ** Install
 
