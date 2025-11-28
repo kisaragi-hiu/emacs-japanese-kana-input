@@ -1,0 +1,15 @@
+* An attempt at a かな入力 input method for Emacs
+
+** Install
+
+Install this package with eg. Straight:
+
+#+begin_src emacs-lisp
+(straight-use-package '(japanese-kana :repo "https://github.com/kisaragi-hiu/emacs-japanese-kana"))
+#+end_src
+
+Then the input method =japanese-kana= and =japanese-kana-katakana= should both be available.
+
+** License
+
+GPLv3. The key part of Kana-Kanji conversion is also just taken straight from the builtin Japanese input method.

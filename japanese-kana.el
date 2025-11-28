@@ -5,7 +5,7 @@
 ;; Author: Kisaragi Hiu <mail@kisaragi-hiu.com>
 ;; Created: 2025-01-20
 ;; Modified: 2025-11-28
-;; Version: 0.1.0
+;; Version: 0.2.0
 ;; Keywords: i18n, input method, Japanese
 ;; Homepage: https://github.com/kisaragi-hiu/emacs-japanese-kana
 ;; Package-Requires: ((emacs "24.3"))
@@ -116,11 +116,27 @@ This is an adapted version of `quail-japanese-kanji-kkc'."
  "japanese-kana" "Japanese" "かな" nil
  "Japanese input method with Kana layout.
 
-The goal is that this skips the Roman-Kana transliteration step in the
-builtin \"japanese\" romaji input method with the Kana layout, then does
-Kana-Kanji conversion after."
+When this input method is used, there are still roughly two stages: Kana
+translation and Kana-Kanji conversion.
+
+Both stages are as similar to the builtin \"japanese\" Romaji input
+method as possible. During Kana translation, these commands are also
+available, just as they are in the \"japanese\" Romaji input method:
+
+- Press K to toggle between Hiragana and Katakana.
+- Press RET to accept the current character sequence.
+- Press SPC to proceed to Kana-Kanji conversion.
+
+Kana-Kanji conversion happens the same way as well.
+
+This input method does not provide the temporary ASCII input mode or
+hankaku input.
+
+The input method `japanese-kana-katakana' is provided for entering just
+Katakana characters with the Kana layout."
  nil t t
  nil nil nil nil nil
+ ;; The default update-translation-functions works
  nil
  '(("K" . japanese-kana-toggle-kana)
    (" " . japanese-kana-kanji-kkc)
