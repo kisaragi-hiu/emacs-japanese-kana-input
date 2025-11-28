@@ -132,8 +132,7 @@ Kana-Kanji conversion happens the same way as well.
 This input method does not provide the temporary ASCII input mode or
 hankaku input.
 
-The input method `japanese-kana-katakana' is provided for entering just
-Katakana characters with the Kana layout."
+The input method `japanese-kana-katakana' is also provided."
  nil t t
  nil nil nil nil nil
  ;; The default update-translation-functions works
@@ -148,9 +147,16 @@ Katakana characters with the Kana layout."
   (quail-defrule (car it) (cdr it)))
 
 (quail-define-package
- "japanese-kana-katakana" "Japanese" "カナ" t
- "Japanese input method for typing Katakana with Kana layout."
- nil t nil)
+ "japanese-kana-katakana" "Japanese" "カナ" nil
+ "Japanese input method for typing Katakana with Kana layout.
+Kana-Kanji conversion still works in this input method."
+ nil t t
+ nil nil nil nil nil
+ nil
+ '(("K" . japanese-kana-toggle-kana)
+   (" " . japanese-kana-kanji-kkc)
+   ("\C-m" . japanese-kana-translation-ret)
+   ([return] . japanese-kana-translation-ret)))
 
 (dolist (it japanese-kana-rules)
   (quail-defrule (car it)
