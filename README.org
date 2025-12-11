@@ -12,6 +12,18 @@
 - I'm not a native Japanese speaker
 - The name is maybe not the best?
 
+** Tasks
+
+- Full width quotation with Shift is broken, this might require not relying on quail's keyboard translation
+- How do we distinguish between the Yen key and the backslash key?
+  - I don't know if this is possible… this would mean we have to contend with using shift-ほ to input ー.
+  - shift pipe should still be pipe, not ろ
+- Should the ^ key insert へ or を when shifted? Consistency says the former, fcitx5 seems to say the latter the way I configured the layouts…
+  - let's check what Windows does.
+- Should shift + け insert ゖ? Fcitx5 and mozc says no
+  - let's check what Windows does.
+- Why does shift + / followed by space trigger 変換 as if we typed う?
+
 ** Install
 
 Install this package with eg. Straight:

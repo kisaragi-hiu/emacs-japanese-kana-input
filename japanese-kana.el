@@ -135,7 +135,7 @@ hankaku input.
 The input method `japanese-kana-katakana' is also provided for typing
 just Katakana with the Kana layout."
  nil t t
- nil nil nil nil nil
+ t nil nil nil nil
  ;; The default update-translation-functions works
  nil
  '(("K" . japanese-kana-toggle-kana)
@@ -151,7 +151,7 @@ just Katakana with the Kana layout."
  "japanese-kana-katakana" "Japanese" "カナ" nil
  "Japanese input method for typing Katakana with Kana layout."
  nil t t
- nil nil nil nil nil
+ t nil nil nil nil
  nil
  '(("K" . japanese-kana-toggle-kana)
    (" " . japanese-kana-translation-ret)
